@@ -1,0 +1,12 @@
+SpeechRecognition == 3.8.1
+vosk == 0.3.45
+PyAudio === 0.2.12
+pyttsx3 == 2.90 
+
+# sounddevice == 0.4.5
+
+
+# PyAutoGUI === 0.9.53
+# pyperclip === 1.8.2
+
+# yaml == 0.6
