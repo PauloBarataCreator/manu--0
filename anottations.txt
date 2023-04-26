@@ -1,1 +1,33 @@
 https://mixkit.co/free-sound-effects/robot/
+
+
+Para limpar o Cache CPU com Python:
+https://community.esri.com/t5/python-questions/clear-memory-cache-arcpy/td-p/745078
+https://gis.stackexchange.com/questions/19684/clearing-cache-memory-using-python
+
+
+1- yaml
+
+É como se fosse um banco de dados de chaves e valores, bom para NLU;
+
+ Como usar:
+
+ import yaml
+
+ data = yaml.safe_load(open('nlu\\train.yml', 'r', encoding='utf-8').read())
+- o "safe_load" serve para transformar arquivos yaml em objeto Python;
+
+ Organizar os dados em dicionário
+
+for command in data['commands']:
+  print(command)
+
+-Para cada conteúdo(macro) que tem no yaml eu transformo em objetos Python, que parecem dicionário.
+-Para especificar qual elemento yaml estou me referindo"data['commands']"
+ No caso é o "['commands']"
+
+
+2- Dataset
+
+ Não são apenas dados, são dados processados
+ Converter dados para números.
