@@ -13,7 +13,7 @@ for command in data['commands']:
 # print(inputs)
 # print(outputs)
 
-# print(command)
+print(command)
 
 # print(data)
 

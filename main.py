@@ -100,15 +100,18 @@ while True:
              
              if text.find('terminal') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
                 os.startfile('cmd.exe')
-               #  sound = AudioSegment.from_mp3("manu\\door-open.wav")
+               #  sound = AudioSegment.from_file(r'manu\\door-open.wav')
                #  play(sound)
              
              if text.find('hotel') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
+                
+                speak('processando isso')
                 os.startfile(r'C:\Users\Suporte\AppData\Local\GitHubDesktop\GitHubDesktop.exe')
             
              if text.find('caixa de entrada') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
+            
                 os.startfile('https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox')            
-               
+
 
              gracias = 'bom dia','boa tarde','boa noite','vamos trabalhar'
 

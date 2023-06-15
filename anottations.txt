@@ -31,3 +31,16 @@ for command in data['commands']:
 
  Não são apenas dados, são dados processados
  Converter dados para números.
+ Para processar usando deep learing;
+
+ Set()- serve para guardar vário itens em uma mesma
+ variável;
+
+
+0bs.: crtl + ' : direciona pro terminal
+
+
+- Posso colocar o While do main.py em uma função e ter o "text" como parâmetro e colocá-lo no StructureRecognize.
+
+
+Bug do ['z'] que aparece sem ser chamado.
