@@ -13,11 +13,11 @@ import os
 
 
 import pyttsx3
-import pyaudio
-import pyautogui
-from pydub import AudioSegment
-from pydub.playback import play
-import pyperclip
+import pyaudio 
+# import pyautogui
+# from pydub import AudioSegment
+# from pydub.playback import play
+# import pyperclip
 import time
 
 
@@ -117,8 +117,8 @@ while True:
                 b = speak('Até mais chefe')
                 exit()
              
-             if text.find('som') >= 0 and (text.find('liga') >= 0 or text.find('desliga') >= 0):
-                pyautogui.hotkey('f5', 'fn')
+            #  if text.find('som') >= 0 and (text.find('liga') >= 0 or text.find('desliga') >= 0):
+            #     pyautogui.hotkey('f5', 'fn')
                 
 
              if text.find('tudo') >=0 and (text.find('reinicia') >= 0 or text.find('recomeça') >= 0):
@@ -143,16 +143,16 @@ while True:
                #  os.startfile('https://translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&op=translate') 
                 webbrowser.open('https://web.whatsapp.com/', new = 0, autoraise = False)          
                
-             if text.find('isso') >=0 and (text.find('traduza') >= 0 or text.find('traduz') >= 0):
-                pyautogui.keyDown('ctrl')
-                pyautogui.press('c')
-                pyautogui.keyUp('ctrl')
-                time.sleep(3)
-                os.startfile('https://translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&op=translate')  
-                time.sleep(3)
-                pyautogui.keyDown('ctrl')
-                pyautogui.press('v')
-                pyautogui.keyUp('ctrl')
+            #  if text.find('isso') >=0 and (text.find('traduza') >= 0 or text.find('traduz') >= 0):
+            #     pyautogui.keyDown('ctrl')
+            #     pyautogui.press('c')
+            #     pyautogui.keyUp('ctrl')
+            #     time.sleep(3)
+            #     os.startfile('https://translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&op=translate')  
+            #     time.sleep(3)
+            #     pyautogui.keyDown('ctrl')
+            #     pyautogui.press('v')
+            #     pyautogui.keyUp('ctrl')
 
              gracias = 'bom dia','boa tarde','boa noite','vamos trabalhar'
 
@@ -261,7 +261,7 @@ while True:
                 if _ in lText:
                   lText.remove(_)
                   # resulted.append('z') 
-            #  print(lText)
+             print(lText)
 
              for icb in lText:
                 if icb != '':
@@ -295,7 +295,7 @@ while True:
 
                   driver.quit()
  
-             mL = ' '.join(lText)
+            #  mL = ' '.join(lText)
             #  print(mL)
              print(resulted)
             #  print(' '.join(subst))
@@ -312,14 +312,27 @@ while True:
             #   answer = test_eight_components(s = mL, j = oF)
  
 
-
-
+             fiveSecs = time.time() + 5
+             zeroSecs = time.time()
 
              if resulted == ['a','z']:
-               
-                os.startfile(dicio[''.join(lText)])
+               try: 
+                 dicio[''.join(lText)]                 
+               except:
+                 print("Deu erro")
 
+                 pass
+               else:
+                 os.startfile(dicio[''.join(lText)])  
+
+             elif resulted != [] and text.find("olá") >= 0:
+               while zeroSecs < fiveSecs:
+                  print("É pesquisa!")
+                  answer = test_eight_components(s = text)
+                  break
              resulted = []
+
+             
             #  else:
 
             #    test_eight_components(s = text)
