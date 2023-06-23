@@ -1,0 +1,57 @@
+
+1 - yaml
+
+
+ É como se fosse um banco de dados de chaves e valores, bom para NLU;
+
+   - Como usar:
+
+      import yaml
+
+      data = yaml.safe_load(open('nlu\\train.yml', 'r', encoding='utf-8').read())
+      
+      obs.: o "safe_load" serve para transformar arquivos yaml em objeto Python;
+      
+
+ 1.1 - Organizar os dados em dicionário
+ 
+  - Como usar:
+
+    for command in data['commands']:
+      print(command)
+
+      - Para cada conteúdo(macro) que tem no yaml eu transformo em objetos Python, que parecem dicionário.
+      - Para especificar qual elemento yaml estou me referindo"data['commands']"
+        No caso é o "['commands']"
+
+
+2 - Dataset
+
+  - Como usar:
+    Não são apenas dados, são dados processados
+    Converter dados para números.
+    Para processar usando deep learing;
+
+    Set()- serve para guardar vário itens em uma mesma
+    variável;
+
+
+3 - Obs. Aleatórias
+
+  0bs.: crtl + ' : direciona pro terminal
+
+
+  Obs.: Posso colocar o While do main.py em uma função e ter o "text" como parâmetro e colocá-lo no StructureRecognize.
+
+
+4 - Bugs
+
+  Bug1.:  do ['z'] que aparece sem ser chamado. /ok
+
+
+
+
+
+
+   
+

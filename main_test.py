@@ -1,4 +1,3 @@
-
 # import argparse
 # import queue
 # import sys
@@ -14,11 +13,11 @@ import os
 
 
 import pyttsx3
-import pyaudio
-import pyautogui
-from pydub import AudioSegment
-from pydub.playback import play
-import pyperclip
+import pyaudio 
+# import pyautogui
+# from pydub import AudioSegment
+# from pydub.playback import play
+# import pyperclip
 import time
 
 
@@ -26,6 +25,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import requests
+import webbrowser
 
 
 ord = 'abra', 'pesquise', 'veja', 'responda',
@@ -40,6 +40,12 @@ adv = 'onde',
 vrb = 'é', 'fica', 'são',
 # d
 
+dicio = { 'terminal' : 'cmd.exe',
+          'hotel' : r'C:\Users\Suporte\AppData\Local\GitHubDesktop\GitHubDesktop.exe',
+          'caixa de entrada': 'https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox',
+          'mensagens' : 'https://web.whatsapp.com/',
+          
+         }
 
 
 resulted = []
@@ -82,6 +88,11 @@ def restart_program():
    python = sys.executable
    os.execl(python, python, * sys.argv)
 
+def timer(five):
+   five = 0
+   time.sleep(5)
+   five = 5
+   return five
 
 #Loop do reconhecimento de fala
 while True:
@@ -95,7 +106,18 @@ while True:
         
         if result is not None:
              text = result['text']
+
+            #  text = 'olá onde fica o rochedo de Gibraltar'
+            
+            #  if text == 'abra terminal':
+            #     time.sleep(0.5)
+            #     text = ''
+             
              print(text)
+             
+            #  time.sleep(5)
+             
+             
             #  speak(text)
             
             
@@ -111,41 +133,42 @@ while True:
                 b = speak('Até mais chefe')
                 exit()
              
-             if text.find('som') >= 0 and (text.find('liga') >= 0 or text.find('desliga') >= 0):
-                pyautogui.hotkey('f5', 'fn')
+            #  if text.find('som') >= 0 and (text.find('liga') >= 0 or text.find('desliga') >= 0):
+            #     pyautogui.hotkey('f5', 'fn')
                 
 
              if text.find('tudo') >=0 and (text.find('reinicia') >= 0 or text.find('recomeça') >= 0):
                 restart_program()
              
-             if text.find('terminal') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
-                os.startfile('cmd.exe')
+            #  if text.find('terminal') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
+            #     os.startfile('cmd.exe')
                #  sound = AudioSegment.from_file(r'manu\\door-open.wav')
                #  play(sound)
              
-             if text.find('hotel') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
+            #  if text.find('hotel') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
                 
-                speak('processando isso')
-                os.startfile(r'C:\Users\Suporte\AppData\Local\GitHubDesktop\GitHubDesktop.exe')
+            #     speak('processando isso')
+            #     os.startfile(r'C:\Users\Suporte\AppData\Local\GitHubDesktop\GitHubDesktop.exe')
             
-             if text.find('caixa de entrada') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
+            #  if text.find('caixa de entrada') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
             
-                os.startfile('https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox') 
+            #     os.startfile('https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox') 
 
              if text.find('tradutor') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
             
-                os.startfile('https://translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&op=translate')           
+               #  os.startfile('https://translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&op=translate') 
+                webbrowser.open('https://web.whatsapp.com/', new = 0, autoraise = False)          
                
-             if text.find('isso') >=0 and (text.find('traduza') >= 0 or text.find('traduz') >= 0):
-                pyautogui.keyDown('ctrl')
-                pyautogui.press('c')
-                pyautogui.keyUp('ctrl')
-                time.sleep(3)
-                os.startfile('https://translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&op=translate')  
-                time.sleep(3)
-                pyautogui.keyDown('ctrl')
-                pyautogui.press('v')
-                pyautogui.keyUp('ctrl')
+            #  if text.find('isso') >=0 and (text.find('traduza') >= 0 or text.find('traduz') >= 0):
+            #     pyautogui.keyDown('ctrl')
+            #     pyautogui.press('c')
+            #     pyautogui.keyUp('ctrl')
+            #     time.sleep(3)
+            #     os.startfile('https://translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&op=translate')  
+            #     time.sleep(3)
+            #     pyautogui.keyDown('ctrl')
+            #     pyautogui.press('v')
+            #     pyautogui.keyUp('ctrl')
 
              gracias = 'bom dia','boa tarde','boa noite','vamos trabalhar'
 
@@ -232,17 +255,19 @@ while True:
 
 
 
-             if aa == a:
-                True
-             elif bb == b:
-                True
-             elif cc == c: 
-                True
-             elif dd == d:
-                True
-             else:
+            #  if aa == a:
+            #     True
+            #  elif bb == b:
+            #     True
+            #  elif cc == c: 
+            #     True
+            #  elif dd == d:
+            #     True
+            #  elif dd == d:
+            #     True
+            #  else:
 
-                  resulted.append('z') 
+                  # resulted.append('z') 
               
 
 
@@ -251,14 +276,20 @@ while True:
              for _ in txT:
                 if _ in lText:
                   lText.remove(_)
+                  # resulted.append('z') 
+             print(lText)
 
+             for icb in lText:
+                if icb != '':
+                   if 'z' not in resulted:
+                      resulted.append('z')
 
+               #  if icb != '':
+               #     resulted.append('z')
+               #     if len(icb) >= 2:
+               #       resulted.remove('z')
 
-
-
-
-
-             def test_eight_components(s, j):
+             def test_eight_components(s):
                   driver = webdriver.Chrome()
 
                   driver.get("https://www.google.com")
@@ -271,7 +302,7 @@ while True:
                   text_box = driver.find_element(by=By.XPATH, value="/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/textarea")
                   submit_button = driver.find_element(by=By.XPATH, value="/html/body/div[1]/div[3]/form/div[1]/div[1]/div[4]/center/input[1]")
 
-                  text_box.send_keys(j + s)
+                  text_box.send_keys(s)
                   submit_button.click()
 
                   message = driver.find_element(by=By.ID, value="message")
@@ -280,74 +311,65 @@ while True:
 
                   driver.quit()
  
-             mL = ' '.join(lText)
-             print(mL)
-             oF = 'onde fica '
-
-             if resulted == ['c', 'd', 'z' ]:
+            #  mL = ' '.join(lText)
+            #  print(mL)
+             print(resulted)
+            #  print(' '.join(subst))
+            #  ltSb = ' '.join(subst)
+            #  resulted = []
+            #  print(ltSb)
+            #  if ltSb != ' ':
+            #     print('Ele existe!')
+            #  oF = 'onde fica '
+            #  sb = ['terminal',]
+            #  print(dicio[' '.join(sb)])
+            #  if resulted == ['c', 'd', 'z' ]:
   
-              answer = test_eight_components(s = mL, j = oF)
+            #   answer = test_eight_components(s = mL, j = oF)
  
+
+            #  fiveSecs = time.time() + 5
+            #  zeroSecs = time.time()
+
+             if resulted == ['a','z']:
+               try: 
+                 dicio[''.join(lText)]                 
+               except:
+                 print("Deu erro")
+
+                 pass
+               else:
+                 os.startfile(dicio[''.join(lText)])  
              
-
-
-
-
-
-
-
-     
-
-           
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# words = text.split(' ')
-
-# if words.index('horas') >= 0 and (words.index('são') >= 0 or words.index('diga') >= 0): 
-   
-            #  if text.find('tudo') >= 0 and (text.find('encerra') >= 0 or text.find('desliga') >= 0):
-            #     b = speak('Até mais chefe')
-            #     exit()
-             
-            #  if text.find('som') >= 0 and (text.find('liga') >= 0 or text.find('desliga') >= 0):
-            #     pyautogui.hotkey('f5', 'fn')
-                
-
-            #  if text.find('tudo') >=0 and (text.find('reinicia') >= 0 or text.find('recomeça') >= 0):
-            #     restart_program()
-             
-            #  if text.find('terminal') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
-            #     os.startfile('cmd.exe')
-              
-             
-            #  if text.find('hotel') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
-                
-            #     speak('processando isso')
-            #     os.startfile(r'C:\Users\Suporte\AppData\Local\GitHubDesktop\GitHubDesktop.exe')
-            
-            #  if text.find('caixa de entrada') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
-            
-            #     os.startfile('https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox')            
-
-
-            #  gracias = 'bom dia','boa tarde','boa noite','vamos trabalhar'
-
-            #  for i in gracias:
+            #  elif resulted != [] and text.find("olá") >= 0:
+             elif resulted != [] and text == "olá":   
                  
-            #   if text == i:
-            #      speak('Olá senhor Paulo, como vai?')
-                 
+                 now_second = core.SystemInfo.get_second()
 
+                 if now_second + 3 or now_second + 6  :
+                      print('Pesquisar 1')
+
+             
+                   
+             elif resulted != [] and text.find("olá"):
+                  print("Pesquisar 2")
+
+
+                     #  pass
+                     #  print(time)      
+               #   answer = test_eight_components(s = text)
+                  
+             resulted = []
+
+
+
+
+             
+            #  else:
+
+            #    test_eight_components(s = text)
+
+
+# dt = dicio['terminal']
+
+# print(dt)
