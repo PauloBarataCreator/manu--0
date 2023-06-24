@@ -1,15 +1,11 @@
 import datetime
 
-# class SystemInfo:
-#    def __init__():
-    #    pass
+class SystemInfo:
+   def _timer_int_():
+       pass
 
-#    @staticmethod
-#    def get_time():
-now = datetime.datetime.now()
-        # answer = 'São {} horas e {} minutos'.format(now.hour, now.minute)
-answer = now.second
-print(type(answer))
-        # return answer
-   
-# get_time()
+   @staticmethod
+   def get_second():
+        now = datetime.datetime.now()
+        answer = now.second
+        return answer

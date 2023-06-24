@@ -9,7 +9,7 @@ from vosk import Model, KaldiRecognizer
 
 import sys
 import os
-
+import subprocess
 
 
 import pyttsx3
@@ -27,36 +27,40 @@ from selenium.webdriver.common.by import By
 import requests
 import webbrowser
 
+# from selenium_searches_google import searches_google
 
-ord = 'abra', 'pesquise', 'veja', 'responda',
+ordens = 'abra', 'pesquise', 'veja', 'responda',
 # a
 
-prn = 'quem', 
+pronomes = 'quem', 
 # b
 
-adv = 'onde', 
+adverbios = 'onde', 
 # c
 
-vrb = 'é', 'fica', 'são',
+verbos = 'é', 'fica', 'são',
 # d
 
 dicio = { 'terminal' : 'cmd.exe',
-          'hotel' : r'C:\Users\Suporte\AppData\Local\GitHubDesktop\GitHubDesktop.exe',
+          'hotel' : r'C:\Users\Paulo Alex\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\GitHub, Inc\GitHubDesktop.exe',
           'caixa de entrada': 'https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox',
           'mensagens' : 'https://web.whatsapp.com/',
           
          }
 
 
-resulted = []
+codigo_tipo_acao = []
 
-# text = 'onde fica o rochedo de gibraltar'
+list_text_equals_database = []
+# igual ao list_text, mas sem os substantivos. Palavras de "text" iguais ao banco de dados.
 
 
-lOrd = list(ord)
-lPrn = list(prn)
-lAdv = list(adv)
-lVrb = list(vrb)
+
+
+list_ordens = list(ordens)
+list_pronomes = list(pronomes)
+list_adverbios = list(adverbios)
+list_verbos = list(verbos)
 
 # os.startfile(r'C:\Users\Suporte\AppData\Local\Google\Chrome\Application\chrome.exe')
 
@@ -94,6 +98,14 @@ def timer(five):
    five = 5
    return five
 
+def counter(search):
+   five_secs = time.time() + int(10)
+   while time.time() <  five_secs:
+      if search != "olá":
+         print("ok")
+         # answer = searches_google(s = text)
+      return search
+
 #Loop do reconhecimento de fala
 while True:
     data = stream.read(8196)
@@ -106,18 +118,7 @@ while True:
         
         if result is not None:
              text = result['text']
-
-            #  text = 'olá onde fica o rochedo de Gibraltar'
-            
-            #  if text == 'abra terminal':
-            #     time.sleep(0.5)
-            #     text = ''
-             
              print(text)
-             
-            #  time.sleep(5)
-             
-             
             #  speak(text)
             
             
@@ -132,32 +133,20 @@ while True:
              if text.find('tudo') >= 0 and (text.find('encerra') >= 0 or text.find('desliga') >= 0):
                 b = speak('Até mais chefe')
                 exit()
-             
-            #  if text.find('som') >= 0 and (text.find('liga') >= 0 or text.find('desliga') >= 0):
-            #     pyautogui.hotkey('f5', 'fn')
                 
 
              if text.find('tudo') >=0 and (text.find('reinicia') >= 0 or text.find('recomeça') >= 0):
                 restart_program()
-             
-            #  if text.find('terminal') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
-            #     os.startfile('cmd.exe')
-               #  sound = AudioSegment.from_file(r'manu\\door-open.wav')
-               #  play(sound)
-             
-            #  if text.find('hotel') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
-                
-            #     speak('processando isso')
-            #     os.startfile(r'C:\Users\Suporte\AppData\Local\GitHubDesktop\GitHubDesktop.exe')
+
             
-            #  if text.find('caixa de entrada') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
+             if text.find('caixa de entrada') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
             
-            #     os.startfile('https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox') 
+                os.startfile('https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox') 
 
              if text.find('tradutor') >=0 and (text.find('abra') >= 0 or text.find('roda') >= 0):
             
-               #  os.startfile('https://translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&op=translate') 
-                webbrowser.open('https://web.whatsapp.com/', new = 0, autoraise = False)          
+                os.startfile('https://translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&op=translate') 
+               #  webbrowser.open('https://web.whatsapp.com/', new = 0, autoraise = False)          
                
             #  if text.find('isso') >=0 and (text.find('traduza') >= 0 or text.find('traduz') >= 0):
             #     pyautogui.keyDown('ctrl')
@@ -176,190 +165,146 @@ while True:
                  
               if text == i:
                  speak('Olá senhor Paulo, como vai?')
-            #problema/bug: caso alguém fale, 'tudo encerrado'. Pode não estar se referindo à manu.
-            #o ideal seria ter o termo manu adicionando probabilidade ao reconhecimento, além de
-            #caixa de pergunta para confirmação da ordem.
-
-            #  if text.find('agora') >= 0:
-               #  navegador = webdriver.Chrome()
-               #  print(str(navegador.current_url))
-               #  http_host = request.META.get('HTTP_HOST')
-
-             lText = text.split(' ')
+           
              
-             
+
+             list_text = text.split(' ')
+             #  list_text transforma todo text em lista             
+           
                 
-
-             for a in lOrd:
-                for aa in lText:
+             detect_list_ordens = []
+             for a in list_ordens:
+                for aa in list_text:
                   if aa == a:
-                    txA = a
                     
-                    a1 = resulted.append('a')
                     
-                  
-             for b in lPrn:
-                for bb in lText:
+                    a1 = codigo_tipo_acao.append('a')
+                    list_text_equals_database.append(a)
+                  # if detect_list_ordens == a:  
+                       
+                  #    list_text_equals_database.append(detect_list_ordens)
+
+             detect_list_pronomes = []
+
+             for b in list_pronomes:
+                for bb in list_text:
                   if bb == b:
-                    txB = b
+                  #   detect_list_pronomes = b
                     
-                    b1 = resulted.append('b')
+                    b1 = codigo_tipo_acao.append('b')
+                    list_text_equals_database.append(b)
+                  # if detect_list_pronomes == a:  
+                       
+                  #    list_text_equals_database.append(detect_list_pronomes)
 
-                  
-             for c in lAdv:
-                for cc in lText:
+             detect_list_adverbios = []     
+             for c in list_adverbios:
+                for cc in list_text:
                   if cc == c:
-                    txC = c
+                  #   detect_list_adverbios = c
                     
-                    c1 = resulted.append('c')
-                  
-                
-             for d in lVrb:
-                for dd in lText:
+                    c1 = codigo_tipo_acao.append('c')
+                    list_text_equals_database.append(c)
+                  # if detect_list_adverbios == a:  
+                       
+                  #    list_text_equals_database.append(detect_list_adverbios)
+             
+             detect_list_verbos = []
+             for d in list_verbos:
+                for dd in list_text:
                   if dd == d:
-                    txD = d
+                  #   detect_list_verbos = d
                   
-                    d1 = resulted.append('d')
+                    d1 = codigo_tipo_acao.append('d')
+                    list_text_equals_database.append(d)
+                  # if detect_list_verbos == a:  
+                       
+                  #    list_text_equals_database.append(detect_list_verbos)
                   
                   
-                  
-             txT = []
+             
+
+            #  try: detect_list_ordens
+            #  except NameError: 
+            #     pass
+            #  else: 
+            #     list_text_equals_database.append(detect_list_ordens)
 
 
-             try: txA
-             except NameError: 
-                pass
-             else: 
-                txT.append(txA)
+            #  try: detect_list_pronomes
+            #  except NameError: 
+            #     pass
+            #  else: 
+            #     list_text_equals_database.append(detect_list_pronomes)
 
 
-             try: txB
-             except NameError: 
-                pass
-             else: 
-                txT.append(txB)
+            #  try: detect_list_adverbios
+            #  except NameError: 
+            #     pass
+            #  else: 
+            #     list_text_equals_database.append(detect_list_adverbios)
 
 
-             try: txC
-             except NameError: 
-                pass
-             else: 
-                txT.append(txC)
+            #  try: detect_list_verbos
+            #  except NameError: 
+            #     pass
+            #  else: 
+            #     list_text_equals_database.append(detect_list_verbos)
+             # detecta quais palavras de "text" são iguais ao banco de dados
 
-
-             try: txD
-             except NameError: 
-                pass
-             else: 
-                txT.append(txD)
-
-
-
-            #  if aa == a:
-            #     True
-            #  elif bb == b:
-            #     True
-            #  elif cc == c: 
-            #     True
-            #  elif dd == d:
-            #     True
-            #  elif dd == d:
-            #     True
-            #  else:
-
-                  # resulted.append('z') 
+             
+             # mostra igual a list_text, só que sem os substantivos;
               
+            
+             
+             print(list_text)
+             print(list_text_equals_database)
 
+             for _ in list_text_equals_database:
+                if _ in list_text:
+                  list_text.remove(_)
+                    
+             list_substantivo = list_text
+             # agora sobra apenas os substantivos de list_texts
+             # print(list_substantivo)
 
-             subst = []
-
-             for _ in txT:
-                if _ in lText:
-                  lText.remove(_)
-                  # resulted.append('z') 
-             print(lText)
-
-             for icb in lText:
+             for icb in list_substantivo:
                 if icb != '':
-                   if 'z' not in resulted:
-                      resulted.append('z')
+                   if 'z' not in codigo_tipo_acao:
+                      codigo_tipo_acao.append('z')
+             # Para cada elemento de list_substantivo se for diferente de vazio e 'z' não está em codigo_tipo_acao, 
+             # append 'z' em codigo_tipo_acao  
+             
 
-               #  if icb != '':
-               #     resulted.append('z')
-               #     if len(icb) >= 2:
-               #       resulted.remove('z')
-
-             def test_eight_components(s):
-                  driver = webdriver.Chrome()
-
-                  driver.get("https://www.google.com")
-
-                  title = driver.title
-                  # assert title == "Web form"
-
-                  driver.implicitly_wait(0.5)
-
-                  text_box = driver.find_element(by=By.XPATH, value="/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/textarea")
-                  submit_button = driver.find_element(by=By.XPATH, value="/html/body/div[1]/div[3]/form/div[1]/div[1]/div[4]/center/input[1]")
-
-                  text_box.send_keys(s)
-                  submit_button.click()
-
-                  message = driver.find_element(by=By.ID, value="message")
-                  value = message.text
-                  assert value == "Received!"
-
-                  driver.quit()
- 
-            #  mL = ' '.join(lText)
-            #  print(mL)
-             print(resulted)
-            #  print(' '.join(subst))
-            #  ltSb = ' '.join(subst)
-            #  resulted = []
-            #  print(ltSb)
-            #  if ltSb != ' ':
-            #     print('Ele existe!')
-            #  oF = 'onde fica '
-            #  sb = ['terminal',]
-            #  print(dicio[' '.join(sb)])
-            #  if resulted == ['c', 'd', 'z' ]:
-  
-            #   answer = test_eight_components(s = mL, j = oF)
+             
+             
  
 
-            #  fiveSecs = time.time() + 5
-            #  zeroSecs = time.time()
 
-             if resulted == ['a','z']:
+             if codigo_tipo_acao == ['a','z']:
                try: 
-                 dicio[''.join(lText)]                 
+                 dicio[''.join(list_substantivo)]                 
                except:
                  print("Deu erro")
-
                  pass
                else:
-                 os.startfile(dicio[''.join(lText)])  
+                 os.startfile(dicio[''.join(list_substantivo)])  
              
-            #  elif resulted != [] and text.find("olá") >= 0:
-             elif resulted != [] and text == "olá":   
+             elif codigo_tipo_acao != [] and text.find("olá") >= 0:
                  
-                 now_second = core.SystemInfo.get_second()
-
-                 if now_second + 3 or now_second + 6  :
-                      print('Pesquisar 1')
+               #   answer = searches_google(text_searches_google = text) 
+                 result = subprocess.run(["python", "selenium_searches_google.py"], capture_output=True, text=True)
+               #   subprocess.run(["D:\Paulos Projects\Personal-Projects\MANU(0.0)\manu\selenium_searches_google.py", "print('ocean')"]) 
+                 result.stdout
+               #   pass
+               #   print("Pesquisa")
+                 
 
              
-                   
-             elif resulted != [] and text.find("olá"):
-                  print("Pesquisar 2")
+             print(codigo_tipo_acao)
 
-
-                     #  pass
-                     #  print(time)      
-               #   answer = test_eight_components(s = text)
-                  
-             resulted = []
+             list_text_equals_database = []     
+             codigo_tipo_acao = []
 
 
 
@@ -367,7 +312,7 @@ while True:
              
             #  else:
 
-            #    test_eight_components(s = text)
+            #   searches_google(text_searches_google = text)
 
 
 # dt = dicio['terminal']
