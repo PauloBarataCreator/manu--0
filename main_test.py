@@ -5,16 +5,18 @@
 import json
 import core
 
+# from test import oi
+
 from vosk import Model, KaldiRecognizer
 
 import sys
 import os
 import subprocess
-
+from subprocess import Popen, PIPE
 
 import pyttsx3
 import pyaudio 
-# import pyautogui
+import pyautogui
 # from pydub import AudioSegment
 # from pydub.playback import play
 # import pyperclip
@@ -27,9 +29,14 @@ from selenium.webdriver.common.by import By
 import requests
 import webbrowser
 
-# from selenium_searches_google import searches_google
+from multiprocessing import Process, Queue
 
-ordens = 'abra', 'pesquise', 'veja', 'responda',
+from test import oi
+
+# from selenium_searches_google import searches_google
+# import selenium_searches_google
+
+ordens = 'abra', 'abrir', 'pesquise', 'veja', 'responda', 'novo', 'lá',
 # a
 
 pronomes = 'quem', 
@@ -41,12 +48,48 @@ adverbios = 'onde',
 verbos = 'é', 'fica', 'são',
 # d
 
-dicio = { 'terminal' : 'cmd.exe',
+
+wake_words = 'lá',
+
+smartin = False
+def smartin_window(smartin):
+   if smartin == True:
+      os.chdir('D:\Projects\Personal\Projects\MANU(0.0)\APPs\SmartinWindow')
+      os.system("python main.py")
+      smartin == False
+
+dicio = { 'terminal' : r'cmd.exe',
           'hotel' : r'C:\Users\Paulo Alex\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\GitHub, Inc\GitHubDesktop.exe',
           'caixa de entrada': 'https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox',
           'mensagens' : 'https://web.whatsapp.com/',
-          
+          'projecto' : r'D:\PycharmProjects\pythonProject2\main.exe',
+          'projeto' : r'D:\PycharmProjects\pythonProject2\main.exe',
+          'código' : r'python.exe',
+          'janelas' : True
          }
+
+
+# def searches_google(text_searches_google):
+#                 driver = webdriver.Chrome()
+
+#                 driver.get("https://www.google.com")
+
+#                 title = driver.title
+#                 # assert title == "Web form"
+
+#                 driver.implicitly_wait(0.5)
+
+#                 text_box = driver.find_element(by=By.XPATH, value="/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/textarea")
+#                 submit_button = driver.find_element(by=By.XPATH, value="/html/body/div[1]/div[3]/form/div[1]/div[1]/div[4]/center/input[1]")
+
+#                 text_box.send_keys(text_searches_google)
+#                 submit_button.click()
+
+#                 message = driver.find_element(by=By.ID, value="message")
+#                 value = message.text
+#                 assert value == "Received!"
+
+#                 driver.quit()
 
 
 codigo_tipo_acao = []
@@ -62,6 +105,8 @@ list_pronomes = list(pronomes)
 list_adverbios = list(adverbios)
 list_verbos = list(verbos)
 
+text_search = ''
+
 # os.startfile(r'C:\Users\Suporte\AppData\Local\Google\Chrome\Application\chrome.exe')
 
 
@@ -72,6 +117,7 @@ list_verbos = list(verbos)
 
 #Síntese de fala
 engine = pyttsx3.init()
+
 
 def speak(text):
 
@@ -88,9 +134,18 @@ stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, fram
 stream.start_stream()
 #presta atenção no buffer, se der erro usa buffer=2048
 
+
+
+
 def restart_program():
+   os.chdir('C:')
    python = sys.executable
    os.execl(python, python, * sys.argv)
+   
+   # try this
+#    subprocess.call(sys.executable + ' "' + os.path.realpath(__file__) + '"')
+#    subprocess.call([sys.executable, os.path.realpath(__file__)] +
+# sys.argv[1:])
 
 def timer(five):
    five = 0
@@ -105,8 +160,17 @@ def counter(search):
          print("ok")
          # answer = searches_google(s = text)
       return search
+   
+def send_text(content):
+   if content != "lá":
+     content = text
+     return content
 
 #Loop do reconhecimento de fala
+number = 0 
+TF = False
+time_online = False
+
 while True:
     data = stream.read(8196)
     if len(data) == 0:
@@ -115,15 +179,13 @@ while True:
         result = rec.Result()
         result = json.loads(result)
         
-        
+      #   cpu_usage = os.system('wmic cpu get loadpercentage')
         if result is not None:
              text = result['text']
              print(text)
+            #  print("ç")
             #  speak(text)
-            
-            
-
-
+             
 #se index >= 0, então a pergunta é verdadeira(existe) e 0++ é posição
 
 
@@ -148,18 +210,36 @@ while True:
                 os.startfile('https://translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&op=translate') 
                #  webbrowser.open('https://web.whatsapp.com/', new = 0, autoraise = False)          
                
-            #  if text.find('isso') >=0 and (text.find('traduza') >= 0 or text.find('traduz') >= 0):
-            #     pyautogui.keyDown('ctrl')
-            #     pyautogui.press('c')
-            #     pyautogui.keyUp('ctrl')
-            #     time.sleep(3)
-            #     os.startfile('https://translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&op=translate')  
-            #     time.sleep(3)
-            #     pyautogui.keyDown('ctrl')
-            #     pyautogui.press('v')
-            #     pyautogui.keyUp('ctrl')
-
+             if text.find('isso') >=0 and (text.find('traduza') >= 0 or text.find('traduz') >= 0):
+                pyautogui.keyDown('ctrl')
+                pyautogui.press('c')
+                pyautogui.keyUp('ctrl')
+                time.sleep(3)
+                os.startfile('https://translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&op=translate')  
+                time.sleep(3)
+                pyautogui.keyDown('ctrl')
+                pyautogui.press('v')
+                pyautogui.keyUp('ctrl')
+             
+             
+             print("before",time_online)
+             if text.find('internet') >= 0 and text.find('horas') >= 0:
+                time_online = True
+                print("after",time_online)
+                if time_online == True:
+                    os.startfile(r"D:\PycharmProjects\pythonProject4\main.exe")
+                    print("inside",time_online)
+                    
+             oi(text)
              gracias = 'bom dia','boa tarde','boa noite','vamos trabalhar'
+             
+            #  if text.find('projeto') >=0 and (text.find('novo') >= 0 or text.find('cria') >= 0):
+            
+
+
+
+            
+            #     os.startfile(r'D:\PycharmProjects\pythonProject2\main.exe') 
 
              for i in gracias:
                  
@@ -171,6 +251,7 @@ while True:
              list_text = text.split(' ')
              #  list_text transforma todo text em lista             
            
+
                 
              detect_list_ordens = []
              for a in list_ordens:
@@ -180,12 +261,9 @@ while True:
                     
                     a1 = codigo_tipo_acao.append('a')
                     list_text_equals_database.append(a)
-                  # if detect_list_ordens == a:  
-                       
-                  #    list_text_equals_database.append(detect_list_ordens)
+                  
 
              detect_list_pronomes = []
-
              for b in list_pronomes:
                 for bb in list_text:
                   if bb == b:
@@ -193,9 +271,7 @@ while True:
                     
                     b1 = codigo_tipo_acao.append('b')
                     list_text_equals_database.append(b)
-                  # if detect_list_pronomes == a:  
-                       
-                  #    list_text_equals_database.append(detect_list_pronomes)
+                 
 
              detect_list_adverbios = []     
              for c in list_adverbios:
@@ -205,9 +281,7 @@ while True:
                     
                     c1 = codigo_tipo_acao.append('c')
                     list_text_equals_database.append(c)
-                  # if detect_list_adverbios == a:  
-                       
-                  #    list_text_equals_database.append(detect_list_adverbios)
+                  
              
              detect_list_verbos = []
              for d in list_verbos:
@@ -217,48 +291,11 @@ while True:
                   
                     d1 = codigo_tipo_acao.append('d')
                     list_text_equals_database.append(d)
-                  # if detect_list_verbos == a:  
-                       
-                  #    list_text_equals_database.append(detect_list_verbos)
                   
                   
-             
-
-            #  try: detect_list_ordens
-            #  except NameError: 
-            #     pass
-            #  else: 
-            #     list_text_equals_database.append(detect_list_ordens)
-
-
-            #  try: detect_list_pronomes
-            #  except NameError: 
-            #     pass
-            #  else: 
-            #     list_text_equals_database.append(detect_list_pronomes)
-
-
-            #  try: detect_list_adverbios
-            #  except NameError: 
-            #     pass
-            #  else: 
-            #     list_text_equals_database.append(detect_list_adverbios)
-
-
-            #  try: detect_list_verbos
-            #  except NameError: 
-            #     pass
-            #  else: 
-            #     list_text_equals_database.append(detect_list_verbos)
-             # detecta quais palavras de "text" são iguais ao banco de dados
-
-             
-             # mostra igual a list_text, só que sem os substantivos;
-              
-            
-             
-             print(list_text)
-             print(list_text_equals_database)
+               
+            #  print(list_text)
+            #  print(list_text_equals_database)
 
              for _ in list_text_equals_database:
                 if _ in list_text:
@@ -276,45 +313,75 @@ while True:
              # append 'z' em codigo_tipo_acao  
              
 
-             
-             
- 
-
 
              if codigo_tipo_acao == ['a','z']:
                try: 
                  dicio[''.join(list_substantivo)]                 
                except:
-                 print("Deu erro")
-                 pass
+                    print("Deu erro")
+                    pass
                else:
-                 os.startfile(dicio[''.join(list_substantivo)])  
-             
-             elif codigo_tipo_acao != [] and text.find("olá") >= 0:
-                 
-               #   answer = searches_google(text_searches_google = text) 
-                 result = subprocess.run(["python", "selenium_searches_google.py"], capture_output=True, text=True)
-               #   subprocess.run(["D:\Paulos Projects\Personal-Projects\MANU(0.0)\manu\selenium_searches_google.py", "print('ocean')"]) 
-                 result.stdout
-               #   pass
-               #   print("Pesquisa")
-                 
+                 try:
+                    
+                    os.startfile(dicio[''.join(list_substantivo)]) 
 
-             
+                    
+                 except:
+                    print("Deu erro 2")
+                  #   pass
+                    smartin_window(dicio[''.join(list_substantivo)])
+               #   else:
+
+             elif (codigo_tipo_acao != [] and text == "lá") or TF == True:
+               print(text , " OUVINDO PESQUISA")
+
+               TF = True
+
+               if TF == True:
+                  # print(TF)
+                  number += 1
+                  # print(number)
+                  # print("ouvindo por 5s")
+
+                  if text != "lá" and text != '':
+                  #   print(text)
+                    print("PESQUISANDO")
+                    speak("Pesquisando")
+                    
+                    p = open("texto_arquivado.txt", "a")
+                    p.write(text)
+                    if p:
+                       print("File is opened")
+
+                  #   result = subprocess.run(["python", "selenium_searches_google.py"], capture_output=True, text=True)
+                  #   if result == True:
+                        # print("Result is true")
+                        
+                    p.close()
+                    if p.close :
+                       print("File is closed")
+                    
+                    result = subprocess.run(["python", "selenium_searches_google.py"], capture_output=True, text=True)
+                    
+                    apagar_texto = open("texto_arquivado.txt", "a")
+                    apagar_texto.truncate(0)
+                    apagar_texto.close()
+
+                  #   print(type(text))
+                 
+                  
+               if number == 5:
+                  number = 0
+                  print("zerou")
+                
+                  TF = False
+                  # print(TF)
+                 
+ 
              print(codigo_tipo_acao)
 
              list_text_equals_database = []     
              codigo_tipo_acao = []
-
-
-
-
              
-            #  else:
-
-            #   searches_google(text_searches_google = text)
 
 
-# dt = dicio['terminal']
-
-# print(dt)

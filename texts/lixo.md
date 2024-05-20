@@ -1,3 +1,47 @@
+https://pypi.org/project/google-play-scraper/
+# Get data from applications from Play Store. Can useless in the future;
+
+
+
+
+
+             
+
+            #  try: detect_list_ordens
+            #  except NameError: 
+            #     pass
+            #  else: 
+            #     list_text_equals_database.append(detect_list_ordens)
+
+
+            #  try: detect_list_pronomes
+            #  except NameError: 
+            #     pass
+            #  else: 
+            #     list_text_equals_database.append(detect_list_pronomes)
+
+
+            #  try: detect_list_adverbios
+            #  except NameError: 
+            #     pass
+            #  else: 
+            #     list_text_equals_database.append(detect_list_adverbios)
+
+
+            #  try: detect_list_verbos
+            #  except NameError: 
+            #     pass
+            #  else: 
+            #     list_text_equals_database.append(detect_list_verbos)
+             # detecta quais palavras de "text" são iguais ao banco de dados
+
+             
+             # mostra igual a list_text, só que sem os substantivos;
+
+
+
+
+
 <!-- list_text = list(text)
 
 for vf in list_text:
